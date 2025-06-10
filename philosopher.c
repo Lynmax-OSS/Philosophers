@@ -14,8 +14,9 @@
 
 int	main(int ac, char **av)
 {
+	t_philo philosopher;
+
 	if (ac != 5)
-	{
-		
-	}
+		write(2, "./philo: <philo> <die> <eat> <think>\n", 38);
+	
 }
