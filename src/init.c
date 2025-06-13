@@ -33,7 +33,11 @@ static int	int_atoi(char *s)
 
 static int	set_philo(t_data *data, int i)
 {
-
+	pthread_mutex_init(&data->fork[i].mutex, NULL);
+	data->philo[i].id = i + 1;
+	data->philo[i].L_fork = &data->fork[i];
+	data->philo[i].R_fork = &data->fork[(i + 1) % data->nop];
+	data->philo[i].data = data;
 }
 
 static int	setup(t_data *data)
