@@ -16,7 +16,7 @@ int	main(int ac, char **av)
 {
 	t_data data;
 
-	if (init(&data, ac, av))
-		return(1);
+	if (!init(&data, ac, av))
+		return(0);
 
 }
