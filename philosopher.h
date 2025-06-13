@@ -12,10 +12,12 @@
 
 #ifndef PHILOSOPHER_H
 # define PHILOSOPHER_H
-# include <stdio.h>
 # include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
 # include <pthread.h>
 # include <sys/time.h>
+# include <limits.h>
 
 typedef struct	s_fork
 {
@@ -46,5 +48,7 @@ typedef struct	s_philo
 	pthread_t	thread;
 	t_data		*data;
 }	t_philo;
+
+int	init(t_data *data, int ac, char **av);
 
 #endif
