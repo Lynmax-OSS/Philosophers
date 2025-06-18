@@ -19,13 +19,13 @@
 # include <sys/time.h>
 # include <limits.h>
 
-typedef struct	s_fork
+typedef struct s_fork
 {
-	pthread_mutex_t mutex;
+	pthread_mutex_t	mutex;
 }	t_fork;
 
 
-typedef struct	s_data
+typedef struct s_data
 {
 	long			start_time;
 	int				nop;
@@ -38,17 +38,19 @@ typedef struct	s_data
 	t_philo			*philo;
 }	t_data;
 
-typedef struct	s_philo
+typedef struct s_philo
 {
 	int			id;
 	long		last_meal;
 	int			meals_eaten;
-	t_fork		*L_fork;
-	t_fork		*R_fork;
+	t_fork		*l_fork;
+	t_fork		*r_fork;
 	pthread_t	thread;
 	t_data		*data;
 }	t_philo;
 
-int	init(t_data *data, int ac, char **av);
+int		init(t_data *data, int ac, char **av);
+void	philo_state(int id, long time, char str);
+long	get_time_in_ms(void);
 
 #endif
