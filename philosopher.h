@@ -50,7 +50,8 @@ typedef struct s_philo
 }	t_philo;
 
 int		init(t_data *data, int ac, char **av);
-void	philo_state(int id, long time, char str);
+void	philo_state(t_philo *philo, char *action);
 long	get_time_in_ms(void);
+void	precise_usleep(long ms);
 
 #endif
