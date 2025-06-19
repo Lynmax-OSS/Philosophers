@@ -71,6 +71,6 @@ int	init(t_data *data, int ac, char **av)
 	data->tts = int_atoi(av[4]);
 	data->check_death = 0;
 	if (!setup(data))
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
