@@ -12,11 +12,41 @@
 
 #include "philosopher.h"
 
+void	join_thread(t_data *data, int i)
+{
+	pthread_join(data->philo[i].thread, NULL);
+}
+
+void	destroy_mutexes(t_data *data, int i)
+{
+	pthread_mutex_destroy(&data->fork[i].mutex);
+}
+
 int	main(int ac, char **av)
 {
-	t_data data;
+	t_data		data;
+	pthread_t	moniter_thread;
+	int			i;
 
-	if (!init(&data, ac, av))
-		return(0);
-
+	if (init(&data, ac, av))
+		return(1);
+	data.start_time = get_time_in_ms();
+	while (i < data.nop)
+	{
+		pthread_create(&data.philo[i].thread,
+					NULL, routine, &data.philo[i]);
+		i++;
+	}
+	pthread_create(&moniter_thread, NULL, moniter, &data);
+	pthread_join(moniter_thread, NULL);
+	i = 0;
+	while (1 < data.nop)
+		join_thread(&data, i++);
+	i = 0;
+	while (1 < data.nop)
+		destroy_mutexes(&data, i++);
+	pthread_mutex_destroy(&data.print_mutex);
+	free (data.fork);
+	free (data.philo);
+	return (0);
 }
