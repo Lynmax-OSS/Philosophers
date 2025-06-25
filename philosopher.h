@@ -56,7 +56,9 @@ int		init(t_data *data, int ac, char **av);
 void	philo_state(t_philo *philo, char *action);
 long	get_time_in_ms(void);
 void	precise_usleep(long ms);
+void	create_philo(t_data *data);
 void	*routine(void *arg);
+void	*single_philo_routine(void *arg);
 void	*moniter(void *arg);
 
 #endif
