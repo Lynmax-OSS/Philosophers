@@ -40,10 +40,10 @@ int	main(int ac, char **av)
 	pthread_create(&moniter_thread, NULL, moniter, &data);
 	pthread_join(moniter_thread, NULL);
 	i = 0;
-	while (1 < data.nop)
+	while (i < data.nop)
 		join_thread(&data, i++);
 	i = 0;
-	while (1 < data.nop)
+	while (i < data.nop)
 		destroy_mutexes(&data, i++);
 	pthread_mutex_destroy(&data.print_mutex);
 	free (data.fork);

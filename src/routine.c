@@ -57,7 +57,7 @@ void	pick_up_forks(t_philo *philo)
 		pick_odd_fork(philo);
 }
 
-void	routine(void *arg)
+void	*routine(void *arg)
 {
 	t_philo	*philo;
 

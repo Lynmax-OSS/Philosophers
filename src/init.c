@@ -31,9 +31,10 @@ static int	int_atoi(char *s)
 	return ((int)result);
 }
 
-static int	set_philo(t_data *data, int i)
+static void	set_philo(t_data *data, int i)
 {
 	pthread_mutex_init(&data->fork[i].mutex, NULL);
+	pthread_mutex_init(&data->philo[i].meal_mutex, NULL);
 	data->philo[i].id = i + 1;
 	data->philo[i].l_fork = &data->fork[i];
 	data->philo[i].r_fork = &data->fork[(i + 1) % data->nop];
