@@ -57,6 +57,18 @@ void	pick_up_forks(t_philo *philo)
 		pick_odd_fork(philo);
 }
 
+void	*single_philo_routine(void *arg)
+{
+	t_philo					*philo;
+
+	philo = (t_philo *)arg;
+	philo_state(philo, "has taken a fork");
+	precise_usleep(philo->data->ttd);
+	philo_state(philo, "died");
+	philo->data->check_death = 1;
+	return (NULL);
+}
+
 void	*routine(void *arg)
 {
 	t_philo	*philo;
