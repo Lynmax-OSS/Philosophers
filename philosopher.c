@@ -31,12 +31,7 @@ int	main(int ac, char **av)
 	if (init(&data, ac, av))
 		return(1);
 	data.start_time = get_time_in_ms();
-	while (i < data.nop)
-	{
-		pthread_create(&data.philo[i].thread,
-					NULL, routine, &data.philo[i]);
-		i++;
-	}
+	create_philo(&data);
 	pthread_create(&moniter_thread, NULL, moniter, &data);
 	pthread_join(moniter_thread, NULL);
 	i = 0;
