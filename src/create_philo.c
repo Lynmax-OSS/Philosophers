@@ -18,13 +18,13 @@ void	create_philo(t_data *data)
 
 	if (data->nop == 1)
 		pthread_create(&data->philo[i].thread,
-					NULL, single_philo_routine, &data->philo[i]);
-	else	
+			NULL, single_philo_routine, &data->philo[i]);
+	else
 	{
 		while (i < data->nop)
 		{
 			pthread_create(&data->philo[i].thread,
-						NULL, routine, &data->philo[i]);
+				NULL, routine, &data->philo[i]);
 			i++;
 		}
 	}
