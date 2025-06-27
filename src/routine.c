@@ -32,6 +32,8 @@ void	*routine(void *arg)
 	philo->last_meal = get_time_in_ms();
 	while (!philo->data->check_death)
 	{
+		if (philo->id % 2 == 0)
+			usleep(200);
 		pick_up_forks(philo);
 		philo_state(philo, "is eating");
 		philo->last_meal = get_time_in_ms();
