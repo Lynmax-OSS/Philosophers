@@ -1,26 +1,82 @@
-NAME		= philo
-CC			= cc
-CFLAGS		= -Wall -Wextra -Werror
-SRCS		= $(wildcard src/*.c) philosopher.c
-OBJ_DIR		= obj
-OBJS		= $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: keteo <keteo@student.42kl.edu.my>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/05/04 22:26:34 by alechin           #+#    #+#              #
+#    Updated: 2025/06/27 16:26:20 by keteo            ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME = philo
+
+
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -g -I$(HEADER)
+RM = rm -rf
+
+#/*		Checker		*/#
+# -fsanitize=address  #
+# -fsanitize=thread   #
+
+SOURCE_DIR = src
+HEADER_DIR = include
+OBJECT_DIR = object
+
+
+HEADER = philosophers.h
+
+
+SOURCE = \
+	src/init.c			src/time.c			src/routine_utils.c			\
+	src/monitor.c		src/philosopher.c	src/routine.c				\
+	src/create_philo.c																\
+
+
+OBJECT = $(SOURCE:$(SOURCE_DIR)/%.c=$(OBJECT_DIR)/%.o)
+
+
+DEFAULT := \033[1;39m
+RESET := \033[0m
+GREEN := \033[1;92m
+YELLOW := \033[1;93m
+CYAN := \033[1;96m
+MAGENTA := \033[1;95m
+
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -pthread $(OBJS) -o $(NAME)
 
-$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
+$(OBJECT_DIR)/%.o: $(SOURCE_DIR)/%.c | $(OBJECT_DIR)
+	@echo "\n$(YELLOW)Compiling .c files into .o files$(RESET)"
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
+$(OBJECT_DIR):
+	@mkdir -p $(OBJECT_DIR)
+
+$(NAME): $(OBJECT)
+	@echo "$(MAGENTA)\nCompiling Philosophers.c...$(RESET)"
+	@$(CC) $(CFLAGS) $(OBJECT) -o $(NAME)
+	@echo "$(GREEN)\nSuccessfully compiled Philosophers.c...$(RESET)"
 
 clean:
-	rm -rf $(OBJ_DIR)
+	@clear
+	@$(RM) $(OBJECT_DIR)
+	@echo "$(CYAN)\nSuccessfully cleaned all object & executable files...$(RESET)"
 
 fclean: clean
-	rm -f $(NAME)
+	@clear
+	@$(RM) $(NAME)
+	@echo "$(CYAN)\nSuccessfully cleaned all object & executable files...$(RESET)"
 
-re: fclean all
+re: clear fclean all
 
-.PHONY: all clean fclean re 
+clear:
+	@clear
+
+valgrind:
+	valgrind --leak-check=full ---show-leak-kinds=all --track-origin=yes
+
+.PHONY: all clean fclean re clear valgrind
