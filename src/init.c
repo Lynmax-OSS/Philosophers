@@ -25,7 +25,7 @@ int	validate_args(char **av)
 		{
 			if (av[i][j] < '0' || av[i][j] > '9')
 			{
-				write(2, "Error: invalid argument\n", 26);
+				write(2, "Error: invalid argument\n", 25);
 				return (1);
 			}
 			j++;
@@ -97,7 +97,7 @@ int	init(t_data *data, int ac, char **av)
 	data->check_death = 0;
 	if (data->nop <= 0 || data->ttd <= 0 || data->tte <= 0 || data->tts <= 0)
 	{
-		write(2, "Error: arguments must be positive integers\n", 45);
+		write(2, "Error: arguments must be positive integers\n", 44);
 		return (1);
 	}
 	if (!setup(data))
