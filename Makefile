@@ -6,7 +6,7 @@
 #    By: keteo <keteo@student.42kl.edu.my>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/04 22:26:34 by alechin           #+#    #+#              #
-#    Updated: 2025/06/27 16:26:20 by keteo            ###   ########.fr        #
+#    Updated: 2025/06/27 16:28:56 by keteo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ HEADER = philosophers.h
 
 SOURCE = \
 	src/init.c			src/time.c			src/routine_utils.c			\
-	src/monitor.c		src/philosopher.c	src/routine.c				\
+	src/monitor.c		philosopher.c	src/routine.c				\
 	src/create_philo.c																\
 
 
