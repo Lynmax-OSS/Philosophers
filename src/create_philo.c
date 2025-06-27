@@ -16,6 +16,7 @@ void	create_philo(t_data *data)
 {
 	int	i;
 
+	i = 0;
 	if (data->nop == 1)
 		pthread_create(&data->philo[i].thread,
 			NULL, single_philo_routine, &data->philo[i]);
