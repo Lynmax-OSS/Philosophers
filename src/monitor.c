@@ -19,12 +19,12 @@ void	moniter_loop(t_data *data, int i, int *full_count)
 
 	pthread_mutex_lock(&data->philo[i].meal_mutex);
 	last_meal = data->philo[i].last_meal;
+	pthread_mutex_unlock(&data->philo[i].meal_mutex);
 	if (data->philo[i].full == 1)
 	{
 		printf("philo %d is full\n", data->philo[i].id);
 		(*full_count)++;
 	}
-	pthread_mutex_unlock(&data->philo[i].meal_mutex);
 	time_since_meal = get_time_in_ms() - last_meal;
 	if (time_since_meal > data->ttd)
 	{

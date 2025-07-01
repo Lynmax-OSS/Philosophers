@@ -96,7 +96,7 @@ int	init(t_data *data)
 		i++;
 	}
 	i = 0;
-	setup_philo(&data);
+	setup_philo(data);
 	return (0);
 }
 
@@ -114,7 +114,7 @@ int	start_simulation(t_data *data)
 		pthread_join(data->philo[0].thread, NULL);
 		return (0);
 	}
-	make_thread(&data);
+	make_thread(data);
 	pthread_create(&monitor_thread, NULL, monitor, data);
 	pthread_join(monitor_thread, NULL);
 	i = 0;

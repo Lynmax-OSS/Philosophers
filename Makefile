@@ -6,7 +6,7 @@
 #    By: keteo <keteo@student.42kl.edu.my>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/04 22:26:34 by alechin           #+#    #+#              #
-#    Updated: 2025/06/30 11:15:30 by keteo            ###   ########.fr        #
+#    Updated: 2025/07/01 14:41:59 by keteo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = philo
 
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -I$(HEADER)
+CFLAGS = -Wall -Wextra -Werror  -g -I$(HEADER)
 RM = rm -rf
 
 #/*		Checker		*/#
@@ -32,6 +32,7 @@ HEADER = philosophers.h
 SOURCE = \
 	src/init.c			src/time.c			src/routine_utils.c			\
 	src/monitor.c		philosopher.c		src/routine.c				\
+	src/init_utils.c
 
 
 OBJECT = $(SOURCE:$(SOURCE_DIR)/%.c=$(OBJECT_DIR)/%.o)
