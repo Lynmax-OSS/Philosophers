@@ -31,7 +31,7 @@ int	main(int ac, char **av)
 	if (parse_args(ac, av, &data))
 		return (1);
 	if (init(&data))
-		return(1);
+		return (1);
 	start_simulation(&data);
 	i = 0;
 	while (i < data.nop)

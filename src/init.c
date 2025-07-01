@@ -38,7 +38,6 @@ static int	validate_args(int argc, char **argv)
 	i = 1;
 	while (i < argc)
 	{
-
 		j = 0;
 		while (argv[i][j])
 		{
@@ -70,9 +69,8 @@ int	parse_args(int argc, char **argv, t_data *data)
 	data->meal_limit = -1;
 	if (argc == 6)
 		data->meal_limit = int_atoi(argv[5]);
-	if (data->nop <= 0 || data->ttd <= 0 ||
-		data->tte <= 0 || data->tts <= 0 ||
-		(argc == 6 && data->meal_limit <= 0))
+	if (data->nop <= 0 || data->ttd <= 0 || data->tte <= 0 || data->tts <= 0
+		|| (argc == 6 && data->meal_limit <= 0))
 	{
 		write(2, "Error: arguments must be positive integers\n", 44);
 		return (1);

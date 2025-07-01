@@ -24,18 +24,18 @@ typedef struct s_fork
 	pthread_mutex_t	mutex;
 }	t_fork;
 
-typedef struct s_data t_data;
+typedef struct s_data	t_data;
 
 typedef struct s_philo
 {
-	int			id;
-	long		last_meal;
-	int			meals_eaten;
-	int			full;
-	t_fork		*l_fork;
-	t_fork		*r_fork;
-	pthread_t	thread;
-	t_data		*data;
+	int				id;
+	long			last_meal;
+	int				meals_eaten;
+	int				full;
+	t_fork			*l_fork;
+	t_fork			*r_fork;
+	pthread_t		thread;
+	t_data			*data;
 	pthread_mutex_t	meal_mutex;
 }	t_philo;
 
@@ -53,7 +53,6 @@ typedef struct s_data
 	t_fork			*fork;
 	t_philo			*philo;
 }	t_data;
-
 
 int		init(t_data *data);
 int		parse_args(int argc, char **argv, t_data *data);
