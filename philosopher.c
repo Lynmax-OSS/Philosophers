@@ -20,23 +20,19 @@ void	join_thread(t_data *data, int i)
 void	destroy_mutexes(t_data *data, int i)
 {
 	pthread_mutex_destroy(&data->fork[i].mutex);
+	pthread_mutex_destroy(&data->philo[i].meal_mutex);
 }
 
 int	main(int ac, char **av)
 {
 	t_data		data;
-	pthread_t	moniter_thread;
 	int			i;
 
-	if (init(&data, ac, av))
+	if (parse_args(ac, av, &data))
+		return (1);
+	if (init(&data))
 		return(1);
-	data.start_time = get_time_in_ms();
-	create_philo(&data);
-	pthread_create(&moniter_thread, NULL, moniter, &data);
-	pthread_join(moniter_thread, NULL);
-	i = 0;
-	while (i < data.nop)
-		join_thread(&data, i++);
+	start_simulation(&data);
 	i = 0;
 	while (i < data.nop)
 		destroy_mutexes(&data, i++);
