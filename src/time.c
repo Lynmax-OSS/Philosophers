@@ -26,7 +26,7 @@ void	precise_usleep(long ms)
 
 	start = get_time_in_ms();
 	while ((get_time_in_ms() - start) < ms)
-		usleep(500);
+		usleep(100);
 }
 
 // int main(void)
