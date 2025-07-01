@@ -34,8 +34,6 @@ int	check_full(t_philo *philo)
 	return (0);
 }
 
-int
-
 void	*routine(void *arg)
 {
 	t_philo	*philo;
