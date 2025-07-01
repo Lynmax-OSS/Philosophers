@@ -19,9 +19,9 @@ void	moniter_loop(t_data *data, int i, int *full_count)
 
 	pthread_mutex_lock(&data->philo[i].meal_mutex);
 	last_meal = data->philo[i].last_meal;
-	if (data->philo[i].full)
+	if (data->philo[i].full == 1)
 	{
-		printf("philo %d is full\n", data->philo->id);
+		printf("philo %d is full\n", data->philo[i].id);
 		(*full_count)++;
 	}
 	pthread_mutex_unlock(&data->philo[i].meal_mutex);
@@ -45,21 +45,22 @@ void	*monitor(void *arg)
 
 	data = (t_data *)arg;
 	i = 0;
+	full_count = 1;
 	while (!data->check_death)
 	{
-		full_count = 0;
 		moniter_loop(data, i, &full_count);
 		i++;
 		if (i >= data->nop)
 		{
 			i = 0;
-			if (data->meal_limit > 0 && full_count >= data->nop)
+			if (data->meal_limit > 0 && full_count + 1 >= data->nop)
 			{
 				printf("All philosophers ate enough. Ending simulation.\n");
 				data->reach_limit = 1;
-				break;
+				return (NULL);
 			}
 		}
+		printf("%d\n", full_count);
 		precise_usleep(1000);
 	}
 	return (NULL);
