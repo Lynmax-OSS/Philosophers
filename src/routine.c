@@ -39,21 +39,19 @@ void	*routine(void *arg)
 	t_philo	*philo;
 	
 	philo = (t_philo *)arg;
-	philo->last_meal = get_time_in_ms();
 	while (!philo->data->check_death && !philo->data->reach_limit)
 	{
+		pthread_mutex_lock(&philo->meal_mutex);
+		philo->last_meal = get_time_in_ms();
+		pthread_mutex_unlock(&philo->meal_mutex);
 		if (philo->id % 2 == 0)
 			precise_usleep(100);
 		if (check_full(philo))
 			return (NULL);
 		pick_up_forks(philo);
 		philo_state(philo, "is eating");
-		philo->last_meal = get_time_in_ms();
 		precise_usleep(philo->data->tte);
 		put_down_forks(philo);
-		pthread_mutex_lock(&philo->meal_mutex);
-		philo->last_meal = get_time_in_ms();
-		pthread_mutex_unlock(&philo->meal_mutex);
 		philo->meals_eaten++;
 		if (check_full(philo))
 			return (NULL);
