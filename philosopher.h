@@ -31,6 +31,7 @@ typedef struct s_philo
 	int			id;
 	long		last_meal;
 	int			meals_eaten;
+	int			full;
 	t_fork		*l_fork;
 	t_fork		*r_fork;
 	pthread_t	thread;
@@ -46,13 +47,17 @@ typedef struct s_data
 	int				tte;
 	int				tts;
 	int				check_death;
+	int				meal_limit;
+	int				reach_limit;
 	pthread_mutex_t	print_mutex;
 	t_fork			*fork;
 	t_philo			*philo;
 }	t_data;
 
 
-int		init(t_data *data, int ac, char **av);
+int		init(t_data *data);
+int		parse_args(int argc, char **argv, t_data *data);
+int		start_simulation(t_data *data);
 void	philo_state(t_philo *philo, char *action);
 long	get_time_in_ms(void);
 void	precise_usleep(long ms);
@@ -64,6 +69,6 @@ void	put_down_forks(t_philo *philo);
 void	pick_up_forks(t_philo *philo);
 void	*routine(void *arg);
 void	*single_philo_routine(void *arg);
-void	*moniter(void *arg);
+void	*monitor(void *arg);
 
 #endif
