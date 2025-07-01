@@ -32,12 +32,14 @@ static int	int_atoi(char *s)
 
 static int	validate_args(int argc, char **argv)
 {
-	int i;
+	int	i;
+	int	j;
 
 	i = 1;
 	while (i < argc)
 	{
-		int j = 0;
+
+		j = 0;
 		while (argv[i][j])
 		{
 			if (argv[i][j] < '0' || argv[i][j] > '9')
@@ -80,7 +82,8 @@ int	parse_args(int argc, char **argv, t_data *data)
 
 int	init(t_data *data)
 {
-	int i;
+	int	i;
+
 	i = 0;
 	data->check_death = 0;
 	data->reach_limit = 0;
@@ -95,24 +98,14 @@ int	init(t_data *data)
 		i++;
 	}
 	i = 0;
-	while (i < data->nop)
-	{
-		data->philo[i].id = i + 1;
-		data->philo[i].meals_eaten = 0;
-		data->philo[i].l_fork = &data->fork[i];
-		data->philo[i].r_fork = &data->fork[(i + 1) % data->nop];
-		data->philo[i].data = data;
-		data->philo[i].full = 0;
-		pthread_mutex_init(&data->philo[i].meal_mutex, NULL);
-		i++;
-	}
+	setup_philo(&data);
 	return (0);
 }
 
 int	start_simulation(t_data *data)
 {
-	int								i;
-	pthread_t					monitor_thread;
+	int			i;
+	pthread_t	monitor_thread;
 
 	data->start_time = get_time_in_ms();
 	i = 0;
@@ -123,12 +116,7 @@ int	start_simulation(t_data *data)
 		pthread_join(data->philo[0].thread, NULL);
 		return (0);
 	}
-	while (i < data->nop)
-	{
-		pthread_create(&data->philo[i].thread, NULL,
-			routine, &data->philo[i]);
-		i++;
-	}
+	make_thread(&data);
 	pthread_create(&monitor_thread, NULL, monitor, data);
 	pthread_join(monitor_thread, NULL);
 	i = 0;
