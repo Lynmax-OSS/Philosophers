@@ -86,6 +86,7 @@ int	init(t_data *data)
 	data->check_death = 0;
 	data->reach_limit = 0;
 	pthread_mutex_init(&data->print_mutex, NULL);
+	pthread_mutex_init(&data->limit_mutex, NULL);
 	data->fork = malloc(sizeof(t_fork) * data->nop);
 	data->philo = malloc(sizeof(t_philo) * data->nop);
 	if (!data->fork || !data->philo)

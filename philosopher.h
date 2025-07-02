@@ -37,6 +37,7 @@ typedef struct s_philo
 	pthread_t		thread;
 	t_data			*data;
 	pthread_mutex_t	meal_mutex;
+	pthread_mutex_t	full_mutex;
 }	t_philo;
 
 typedef struct s_data
@@ -50,6 +51,7 @@ typedef struct s_data
 	int				meal_limit;
 	int				reach_limit;
 	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	limit_mutex;
 	t_fork			*fork;
 	t_philo			*philo;
 }	t_data;
@@ -57,6 +59,7 @@ typedef struct s_data
 int		init(t_data *data);
 int		parse_args(int argc, char **argv, t_data *data);
 int		start_simulation(t_data *data);
+int		check_full(t_philo *philo);
 void	philo_state(t_philo *philo, char *action);
 long	get_time_in_ms(void);
 void	precise_usleep(long ms);

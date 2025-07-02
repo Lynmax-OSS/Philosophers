@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keteo <keteo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: keteo <keteo@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 13:07:35 by keteo             #+#    #+#             */
-/*   Updated: 2025/06/26 13:08:18 by keteo            ###   ########.fr       */
+/*   Updated: 2025/07/02 14:31:06 by keteo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	pick_even_fork(t_philo *philo)
 
 void	pick_odd_fork(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->r_fork->mutex);
-	philo_state(philo, "has taken a fork");
 	pthread_mutex_lock(&philo->l_fork->mutex);
+	philo_state(philo, "has taken a fork");
+	pthread_mutex_lock(&philo->r_fork->mutex);
 	philo_state(philo, "has taken a fork");
 }
 
