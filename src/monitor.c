@@ -31,10 +31,12 @@ void	moniter_loop(t_data *data, int i, int *full_count)
 	if (time_since_meal > data->ttd)
 	{
 		pthread_mutex_lock(&data->print_mutex);
-		data->check_death = 1;
-		printf("%ld %d died\n",
-			get_time_in_ms() - data->start_time,
-			data->philo[i].id);
+		if (&data->philo[i].meals_eaten < &data->meal_limit)
+		{
+			data->check_death = 1;
+			printf("%ld %d died\n", get_time_in_ms() - data->start_time, data->philo[i].id);
+			pthread_mutex_unlock(&data->print_mutex);
+		} 
 		pthread_mutex_unlock(&data->print_mutex);
 	}
 }

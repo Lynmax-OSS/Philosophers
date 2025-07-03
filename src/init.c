@@ -43,7 +43,7 @@ static int	validate_args(int argc, char **argv)
 		{
 			if (argv[i][j] < '0' || argv[i][j] > '9')
 			{
-				write(2, "Error: arguments not integers\n", 31);
+				write(2, "Error: Invaldid arguments\n", 27);
 				return (1);
 			}
 			j++;
