@@ -31,13 +31,13 @@ void	moniter_loop(t_data *data, int i, int *full_count)
 	if (time_since_meal > data->ttd)
 	{
 		pthread_mutex_lock(&data->print_mutex);
-		if (&data->philo[i].meals_eaten < &data->meal_limit)
+		if (data->meal_limit == -1 || data->philo[i].meals_eaten < data->meal_limit)
 		{
 			data->check_death = 1;
 			printf("%ld %d died\n", get_time_in_ms() - data->start_time, data->philo[i].id);
 			pthread_mutex_unlock(&data->print_mutex);
-		} 
-		pthread_mutex_unlock(&data->print_mutex);
+		}
+			pthread_mutex_unlock(&data->print_mutex);
 	}
 }
 
@@ -64,7 +64,7 @@ void	*monitor(void *arg)
 			}
 		}
 		// printf("%d\n", full_count);
-		precise_usleep(1000);
+		precise_usleep(500);
 	}
 	return (NULL);
 }
