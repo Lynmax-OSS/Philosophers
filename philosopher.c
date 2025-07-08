@@ -22,6 +22,7 @@ void	destroy_mutexes(t_data *data, int i)
 	pthread_mutex_destroy(&data->fork[i].mutex);
 	pthread_mutex_destroy(&data->philo[i].meal_mutex);
 	pthread_mutex_destroy(&data->philo[i].full_mutex);
+	pthread_mutex_destroy(&data->philo[i].readiness);
 }
 
 int	main(int ac, char **av)

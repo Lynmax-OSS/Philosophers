@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: keteo <keteo@student.42kl.edu.my>          +#+  +:+       +#+         #
+#    By: keteo <keteo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/04 22:26:34 by alechin           #+#    #+#              #
-#    Updated: 2025/07/03 14:20:17 by keteo            ###   ########.fr        #
+#    Updated: 2025/07/08 16:29:09 by keteo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = philo
 
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror  -g -I$(HEADER)
+CFLAGS = -Wall -Wextra -Werror  -g -I$(HEADER) -fsanitize=thread
 RM = rm -rf
 
 #/*		Checker		*/#

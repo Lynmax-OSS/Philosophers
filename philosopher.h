@@ -32,12 +32,14 @@ typedef struct s_philo
 	long			last_meal;
 	int				meals_eaten;
 	int				full;
+	int				is_ready;
 	t_fork			*l_fork;
 	t_fork			*r_fork;
 	pthread_t		thread;
 	t_data			*data;
 	pthread_mutex_t	meal_mutex;
 	pthread_mutex_t	full_mutex;
+	pthread_mutex_t	readiness;
 }	t_philo;
 
 typedef struct s_data
@@ -50,6 +52,8 @@ typedef struct s_data
 	int				check_death;
 	int				meal_limit;
 	int				reach_limit;
+	int				all_ready;
+	int				nop_ready;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	limit_mutex;
 	t_fork			*fork;
