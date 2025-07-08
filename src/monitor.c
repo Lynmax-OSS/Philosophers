@@ -24,7 +24,7 @@ static void	check_full(t_data *data, int *full_count)
 	}
 }
 
-void	moniter_loop(t_data *data, int i, int *full_count)
+static void	moniter_loop(t_data *data, int i, int *full_count)
 {
 	long	last_meal;
 	long	time_since_meal;

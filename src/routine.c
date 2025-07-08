@@ -24,7 +24,7 @@ void	*single_philo_routine(void *arg)
 	return (NULL);
 }
 
-int	set_full(t_philo *philo)
+static int	set_full(t_philo *philo)
 {
 	if (philo->data->meal_limit > 0 && philo->meals_eaten
 		== philo->data->meal_limit && philo->full != 1)
@@ -37,7 +37,7 @@ int	set_full(t_philo *philo)
 	return (1);
 }
 
-void	philo_eating(t_philo *philo)
+static void	philo_eating(t_philo *philo)
 {
 	philo_state(philo, "is eating");
 	pthread_mutex_lock(&philo->meal_mutex);
