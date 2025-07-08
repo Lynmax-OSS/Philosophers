@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keteo <keteo@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: keteo <keteo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 13:49:46 by keteo             #+#    #+#             */
-/*   Updated: 2025/07/01 15:10:51 by keteo            ###   ########.fr       */
+/*   Updated: 2025/07/08 17:07:58 by keteo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	setup_philo(t_data *data)
 		data->philo[i].full = 0;
 		pthread_mutex_init(&data->philo[i].meal_mutex, NULL);
 		pthread_mutex_init(&data->philo[i].full_mutex, NULL);
+		pthread_mutex_init(&data->philo[i].readiness, NULL);
 		i++;
 	}
 }

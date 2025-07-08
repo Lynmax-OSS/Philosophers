@@ -12,11 +12,8 @@
 
 #include "../philosopher.h"
 
-static void	check_full(t_data *data, int *full_count)
+static void	check_full(t_data *data, int *full_count, int i)
 {
-	int	i;
-
-	i = 0;
 	if (data->philo[i].full == 1)
 	{
 		printf("philo %d is full\n", data->philo[i].id);
@@ -33,22 +30,30 @@ static void	moniter_loop(t_data *data, int i, int *full_count)
 	last_meal = data->philo[i].last_meal;
 	pthread_mutex_unlock(&data->philo[i].meal_mutex);
 	pthread_mutex_lock(&data->philo[i].full_mutex);
-	check_full(data, full_count);
+	check_full(data, full_count, i);
 	pthread_mutex_unlock(&data->philo[i].full_mutex);
 	time_since_meal = get_time_in_ms() - last_meal;
 	if (time_since_meal > data->ttd)
 	{
-		pthread_mutex_lock(&data->print_mutex);
 		if (data->meal_limit == -1 || data->philo[i].meals_eaten
 			< data->meal_limit)
 		{
+			pthread_mutex_lock(&data->print_mutex);
 			data->check_death = 1;
 			printf("%ld %d died\n", get_time_in_ms() - data->start_time,
 				data->philo[i].id);
 			pthread_mutex_unlock(&data->print_mutex);
 		}
-		pthread_mutex_unlock(&data->print_mutex);
 	}
+}
+
+int	wait_for_threads(t_data *data)
+{
+	if (data->philo->is_ready)
+		data->nop_ready += 1;
+	while (data->nop_ready < data->nop)
+		;
+	data->all_ready = 1;
 }
 
 void	*monitor(void *arg)
@@ -59,7 +64,7 @@ void	*monitor(void *arg)
 
 	data = (t_data *)arg;
 	i = 0;
-	full_count = 1;
+	full_count = 0;
 	while (!data->check_death)
 	{
 		moniter_loop(data, i, &full_count);

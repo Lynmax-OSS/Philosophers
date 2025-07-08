@@ -27,7 +27,7 @@ void	*single_philo_routine(void *arg)
 static int	set_full(t_philo *philo)
 {
 	if (philo->data->meal_limit > 0 && philo->meals_eaten
-		== philo->data->meal_limit && philo->full != 1)
+		>= philo->data->meal_limit && philo->full != 1)
 	{
 		pthread_mutex_lock(&philo->full_mutex);
 		philo->full = 1;
@@ -47,11 +47,19 @@ static void	philo_eating(t_philo *philo)
 	precise_usleep(philo->data->tte);
 }
 
+static void	waiting(t_philo *philo)
+{
+	philo->is_ready = 1;
+	while (!philo->data->all_ready)
+		;
+}
+
 void	*routine(void *arg)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	waiting(philo);
 	while (!philo->data->check_death)
 	{
 		if (!set_full(philo))
