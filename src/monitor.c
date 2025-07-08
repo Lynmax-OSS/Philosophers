@@ -12,6 +12,18 @@
 
 #include "../philosopher.h"
 
+static void	check_full(t_data *data, int *full_count)
+{
+	int	i;
+
+	i = 0;
+	if (data->philo[i].full == 1)
+	{
+		printf("philo %d is full\n", data->philo[i].id);
+		(*full_count)++;
+	}
+}
+
 void	moniter_loop(t_data *data, int i, int *full_count)
 {
 	long	last_meal;
@@ -21,23 +33,21 @@ void	moniter_loop(t_data *data, int i, int *full_count)
 	last_meal = data->philo[i].last_meal;
 	pthread_mutex_unlock(&data->philo[i].meal_mutex);
 	pthread_mutex_lock(&data->philo[i].full_mutex);
-	if (data->philo[i].full == 1)
-	{
-		printf("philo %d is full\n", data->philo[i].id);
-		(*full_count)++;
-	}
+	check_full(data, full_count);
 	pthread_mutex_unlock(&data->philo[i].full_mutex);
 	time_since_meal = get_time_in_ms() - last_meal;
 	if (time_since_meal > data->ttd)
 	{
 		pthread_mutex_lock(&data->print_mutex);
-		if (data->meal_limit == -1 || data->philo[i].meals_eaten < data->meal_limit)
+		if (data->meal_limit == -1 || data->philo[i].meals_eaten
+			< data->meal_limit)
 		{
 			data->check_death = 1;
-			printf("%ld %d died\n", get_time_in_ms() - data->start_time, data->philo[i].id);
+			printf("%ld %d died\n", get_time_in_ms() - data->start_time,
+				data->philo[i].id);
 			pthread_mutex_unlock(&data->print_mutex);
 		}
-			pthread_mutex_unlock(&data->print_mutex);
+		pthread_mutex_unlock(&data->print_mutex);
 	}
 }
 
@@ -63,7 +73,6 @@ void	*monitor(void *arg)
 				return (NULL);
 			}
 		}
-		// printf("%d\n", full_count);
 		precise_usleep(500);
 	}
 	return (NULL);

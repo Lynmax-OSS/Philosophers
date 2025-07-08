@@ -50,7 +50,7 @@ void	philo_eating(t_philo *philo)
 void	*routine(void *arg)
 {
 	t_philo	*philo;
-	
+
 	philo = (t_philo *)arg;
 	while (!philo->data->check_death)
 	{
