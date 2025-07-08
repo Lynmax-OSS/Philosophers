@@ -59,7 +59,6 @@ typedef struct s_data
 int		init(t_data *data);
 int		parse_args(int argc, char **argv, t_data *data);
 int		start_simulation(t_data *data);
-int		check_full(t_philo *philo);
 void	philo_state(t_philo *philo, char *action);
 long	get_time_in_ms(void);
 void	precise_usleep(long ms);
