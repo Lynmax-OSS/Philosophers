@@ -6,7 +6,7 @@
 /*   By: keteo <keteo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 13:49:46 by keteo             #+#    #+#             */
-/*   Updated: 2025/07/08 17:07:58 by keteo            ###   ########.fr       */
+/*   Updated: 2025/07/11 15:55:11 by keteo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	setup_philo(t_data *data)
 		data->philo[i].full = 0;
 		pthread_mutex_init(&data->philo[i].meal_mutex, NULL);
 		pthread_mutex_init(&data->philo[i].full_mutex, NULL);
-		pthread_mutex_init(&data->philo[i].readiness, NULL);
 		i++;
 	}
 }
@@ -43,4 +42,12 @@ void	make_thread(t_data *data)
 			routine, &data->philo[i]);
 		i++;
 	}
+}
+
+void	single_thread(t_data *data)
+{
+	data->start_time = get_time_in_ms();
+	pthread_create(&data->philo[0].thread, NULL,
+		single_philo_routine, &data->philo[0]);
+	pthread_join(data->philo[0].thread, NULL);
 }

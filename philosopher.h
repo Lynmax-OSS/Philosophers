@@ -18,6 +18,7 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <limits.h>
+# include <stdbool.h>
 
 typedef struct s_fork
 {
@@ -32,14 +33,12 @@ typedef struct s_philo
 	long			last_meal;
 	int				meals_eaten;
 	int				full;
-	int				is_ready;
 	t_fork			*l_fork;
 	t_fork			*r_fork;
 	pthread_t		thread;
 	t_data			*data;
 	pthread_mutex_t	meal_mutex;
 	pthread_mutex_t	full_mutex;
-	pthread_mutex_t	readiness;
 }	t_philo;
 
 typedef struct s_data
@@ -52,10 +51,12 @@ typedef struct s_data
 	int				check_death;
 	int				meal_limit;
 	int				reach_limit;
-	int				all_ready;
 	int				nop_ready;
+	int				start_flag;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	limit_mutex;
+	pthread_mutex_t	death_mutex;
+	pthread_mutex_t	start;
 	t_fork			*fork;
 	t_philo			*philo;
 }	t_data;
@@ -63,11 +64,17 @@ typedef struct s_data
 int		init(t_data *data);
 int		parse_args(int argc, char **argv, t_data *data);
 int		start_simulation(t_data *data);
+int		set_full(t_philo *philo);
+int		check_death(t_philo *philo);
+void	waiting(t_philo *philo);
+void	philo_eating(t_philo *philo);
 void	philo_state(t_philo *philo, char *action);
 long	get_time_in_ms(void);
 void	precise_usleep(long ms);
 void	setup_philo(t_data *data);
 void	make_thread(t_data *data);
+void	single_thread(t_data *data);
+void	set_last_meal(t_philo *philo);
 void	philo_state(t_philo *philo, char *action);
 void	pick_even_fork(t_philo *philo);
 void	pick_odd_fork(t_philo *philo);

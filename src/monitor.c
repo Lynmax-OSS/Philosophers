@@ -39,7 +39,9 @@ static void	moniter_loop(t_data *data, int i, int *full_count)
 			< data->meal_limit)
 		{
 			pthread_mutex_lock(&data->print_mutex);
+			pthread_mutex_lock(&data->death_mutex);
 			data->check_death = 1;
+			pthread_mutex_unlock(&data->death_mutex);
 			printf("%ld %d died\n", get_time_in_ms() - data->start_time,
 				data->philo[i].id);
 			pthread_mutex_unlock(&data->print_mutex);
@@ -47,14 +49,6 @@ static void	moniter_loop(t_data *data, int i, int *full_count)
 	}
 }
 
-int	wait_for_threads(t_data *data)
-{
-	if (data->philo->is_ready)
-		data->nop_ready += 1;
-	while (data->nop_ready < data->nop)
-		;
-	data->all_ready = 1;
-}
 
 void	*monitor(void *arg)
 {
@@ -65,6 +59,7 @@ void	*monitor(void *arg)
 	data = (t_data *)arg;
 	i = 0;
 	full_count = 0;
+	// precise_usleep(10);
 	while (!data->check_death)
 	{
 		moniter_loop(data, i, &full_count);

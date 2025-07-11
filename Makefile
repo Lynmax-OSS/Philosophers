@@ -6,7 +6,7 @@
 #    By: keteo <keteo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/04 22:26:34 by alechin           #+#    #+#              #
-#    Updated: 2025/07/08 16:29:09 by keteo            ###   ########.fr        #
+#    Updated: 2025/07/11 15:43:36 by keteo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ HEADER = philosophers.h
 SOURCE = \
 	src/init.c			src/time.c			src/routine_utils.c			\
 	src/monitor.c		philosopher.c		src/routine.c				\
-	src/init_utils.c
+	src/init_utils.c	src/routine_utils_2.c
 
 
 OBJECT = $(SOURCE:$(SOURCE_DIR)/%.c=$(OBJECT_DIR)/%.o)
