@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keteo <keteo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: keteo <keteo@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 15:33:11 by keteo             #+#    #+#             */
-/*   Updated: 2025/07/11 16:01:45 by keteo            ###   ########.fr       */
+/*   Updated: 2025/07/13 15:26:09 by keteo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,12 @@ void	philo_eating(t_philo *philo)
 	precise_usleep(philo->data->tte);
 }
 
-void	waiting(t_philo *philo)
+void	set_ready(t_philo *philo)
 {
-	int	flag;
-
-	flag = 0;
-	while (!flag)
-	{
-		pthread_mutex_lock(&philo->data->start);
-		flag = philo->data->start_flag;
-		pthread_mutex_unlock(&philo->data->start);
-		precise_usleep(100);
-	}
+	pthread_mutex_lock(&philo->data->ready_mutex);
+	philo->data->ready_count++;
+	philo->last_meal = get_time_in_ms();
+	pthread_mutex_unlock(&philo->data->ready_mutex);
 }
 
 int	check_death(t_philo *philo)

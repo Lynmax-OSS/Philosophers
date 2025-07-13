@@ -29,8 +29,7 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	// waiting(philo);
-	// set_last_meal(philo);
+	set_ready(philo);
 	while (!check_death(philo))
 	{
 		if (!set_full(philo))

@@ -85,11 +85,10 @@ int	init(t_data *data)
 	i = 0;
 	data->check_death = 0;
 	data->reach_limit = 0;
-	data->nop_ready = 0;
-	data->start_flag = 0;
+	data->ready_count = 0;
 	pthread_mutex_init(&data->print_mutex, NULL);
 	pthread_mutex_init(&data->limit_mutex, NULL);
-	pthread_mutex_init(&data->start, NULL);
+	pthread_mutex_init(&data->ready_mutex, NULL);
 	pthread_mutex_init(&data->death_mutex, NULL);
 	data->fork = malloc(sizeof(t_fork) * data->nop);
 	data->philo = malloc(sizeof(t_philo) * data->nop);
@@ -118,9 +117,6 @@ int	start_simulation(t_data *data)
 	}
 	data->start_time = get_time_in_ms();
 	make_thread(data);
-	// pthread_mutex_lock(&data->start);
-	// data->start_flag = 1;
-	// pthread_mutex_unlock(&data->start);
 	pthread_create(&monitor_thread, NULL, monitor, data);
 	pthread_join(monitor_thread, NULL);
 	i = 0;

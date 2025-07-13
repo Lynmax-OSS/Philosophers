@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../philosopher.h"
+#include <stdbool.h>
 
 static void	check_full(t_data *data, int *full_count, int i)
 {
@@ -18,6 +19,21 @@ static void	check_full(t_data *data, int *full_count, int i)
 	{
 		printf("philo %d is full\n", data->philo[i].id);
 		(*full_count)++;
+	}
+}
+
+static void	wait_for_threads(t_data *data)
+{
+	while (1)
+	{
+		pthread_mutex_lock(&data->ready_mutex);
+		if (data->ready_count >= data->nop)
+		{
+			pthread_mutex_unlock(&data->ready_mutex);
+			break;
+		}
+		pthread_mutex_unlock(&data->ready_mutex);
+		usleep(100); // avoid burning CPU in a tight loop
 	}
 }
 
@@ -33,6 +49,7 @@ static void	moniter_loop(t_data *data, int i, int *full_count)
 	check_full(data, full_count, i);
 	pthread_mutex_unlock(&data->philo[i].full_mutex);
 	time_since_meal = get_time_in_ms() - last_meal;
+	// printf("time since last meal: %ld\n", time_since_meal);
 	if (time_since_meal > data->ttd)
 	{
 		if (data->meal_limit == -1 || data->philo[i].meals_eaten
@@ -59,7 +76,7 @@ void	*monitor(void *arg)
 	data = (t_data *)arg;
 	i = 0;
 	full_count = 0;
-	// precise_usleep(10);
+	wait_for_threads(data);
 	while (!data->check_death)
 	{
 		moniter_loop(data, i, &full_count);
