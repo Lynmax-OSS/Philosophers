@@ -30,10 +30,10 @@ static void	wait_for_threads(t_data *data)
 		if (data->ready_count >= data->nop)
 		{
 			pthread_mutex_unlock(&data->ready_mutex);
-			break;
+			break ;
 		}
 		pthread_mutex_unlock(&data->ready_mutex);
-		usleep(100); // avoid burning CPU in a tight loop
+		usleep(100);
 	}
 }
 
@@ -49,7 +49,6 @@ static void	moniter_loop(t_data *data, int i, int *full_count)
 	check_full(data, full_count, i);
 	pthread_mutex_unlock(&data->philo[i].full_mutex);
 	time_since_meal = get_time_in_ms() - last_meal;
-	// printf("time since last meal: %ld\n", time_since_meal);
 	if (time_since_meal > data->ttd)
 	{
 		if (data->meal_limit == -1 || data->philo[i].meals_eaten
@@ -65,7 +64,6 @@ static void	moniter_loop(t_data *data, int i, int *full_count)
 		}
 	}
 }
-
 
 void	*monitor(void *arg)
 {

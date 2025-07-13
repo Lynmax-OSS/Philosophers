@@ -51,8 +51,8 @@ typedef struct s_data
 	int				check_death;
 	int				meal_limit;
 	int				reach_limit;
-	int 			ready_count;
-	pthread_mutex_t ready_mutex;
+	int				ready_count;
+	pthread_mutex_t	ready_mutex;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	limit_mutex;
 	pthread_mutex_t	death_mutex;
