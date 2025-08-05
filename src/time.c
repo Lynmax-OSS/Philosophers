@@ -20,13 +20,17 @@ long	get_time_in_ms(void)
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
-void	precise_usleep(long ms)
+void	precise_usleep(long ms, t_philo *philo)
 {
 	long	start;
 
 	start = get_time_in_ms();
 	while ((get_time_in_ms() - start) < ms)
+	{
+		if (check_death(philo))
+			break ;
 		usleep(100);
+	}
 }
 
 // int main(void)

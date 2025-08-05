@@ -17,7 +17,6 @@ static void	check_full(t_data *data, int *full_count, int i)
 {
 	if (data->philo[i].full == 1)
 	{
-		printf("philo %d is full\n", data->philo[i].id);
 		(*full_count)++;
 	}
 }
@@ -88,7 +87,7 @@ void	*monitor(void *arg)
 				return (NULL);
 			}
 		}
-		precise_usleep(500);
+		precise_usleep(100, data->philo);
 	}
 	return (NULL);
 }

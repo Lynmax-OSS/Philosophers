@@ -69,7 +69,7 @@ void	set_ready(t_philo *philo);
 void	philo_eating(t_philo *philo);
 void	philo_state(t_philo *philo, char *action);
 long	get_time_in_ms(void);
-void	precise_usleep(long ms);
+void	precise_usleep(long ms, t_philo *philo);
 void	setup_philo(t_data *data);
 void	make_thread(t_data *data);
 void	single_thread(t_data *data);

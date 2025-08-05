@@ -18,7 +18,7 @@ void	*single_philo_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	philo_state(philo, "has taken a fork");
-	precise_usleep(philo->data->ttd);
+	precise_usleep(philo->data->ttd, philo);
 	philo_state(philo, "died");
 	philo->data->check_death = 1;
 	return (NULL);
@@ -35,19 +35,19 @@ void	*routine(void *arg)
 		if (!set_full(philo))
 			return (NULL);
 		if (philo->id % 2 == 0)
-			precise_usleep(100);
+			precise_usleep(100, philo);
 		pick_up_forks(philo);
 		philo_eating(philo);
 		put_down_forks(philo);
 		if (!set_full(philo))
 			return (NULL);
 		philo_state(philo, "is sleeping");
-		precise_usleep(philo->data->tts);
+		precise_usleep(philo->data->tts, philo);
 		if (!set_full(philo))
 			return (NULL);
 		philo_state(philo, "is thinking");
 		if (philo->data->nop % 2 != 0 && philo->id % 2 == 1)
-			precise_usleep(philo->data->tte / 2);
+			precise_usleep(philo->data->tte / 2, philo);
 	}
 	return (NULL);
 }

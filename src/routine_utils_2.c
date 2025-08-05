@@ -32,7 +32,7 @@ void	philo_eating(t_philo *philo)
 	philo->last_meal = get_time_in_ms();
 	philo->meals_eaten++;
 	pthread_mutex_unlock(&philo->meal_mutex);
-	precise_usleep(philo->data->tte);
+	precise_usleep(philo->data->tte, philo);
 }
 
 void	set_ready(t_philo *philo)
